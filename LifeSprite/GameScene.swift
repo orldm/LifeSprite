@@ -9,34 +9,26 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    
+    var squareSprite: SKSpriteNode!
+    let lifeModel = LifeModel.sharedInstance
+    
     override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!";
-        myLabel.fontSize = 65;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
         
-        self.addChild(myLabel)
+        backgroundColor = SKColor.lightGrayColor()
+        squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(10, 10))
+        squareSprite.position = CGPointMake(300, 300)
+        addChild(squareSprite)
+        
+        let aaa = LifeModel.sharedInstance.generateSet()
+        
+        println(aaa)
+
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         /* Called when a touch begins */
         
-        for touch: AnyObject in touches {
-            let location = touch.locationInNode(self)
-            
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-            
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
-        }
     }
    
     override func update(currentTime: CFTimeInterval) {
