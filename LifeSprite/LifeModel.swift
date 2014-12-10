@@ -17,8 +17,23 @@ class LifeModel: NSObject {
         return Singleton.instance
     }
     
-    func generateSet() -> Int {
-        return Int(arc4random_uniform(100))
+    func generateSet() -> [String: (CGFloat,CGFloat)] {
+        
+        var dict = [String: (CGFloat,CGFloat)]()
+        
+        for i in 0...100 {
+            let arg = UInt32(60)
+            let x = arc4random_uniform(arg) * 10
+            let y = arc4random_uniform(arg) * 10
+            let key = "\(x):\(y)"
+            
+            if (dict.indexForKey(key) == nil) {
+                dict[key] = (CGFloat(x),CGFloat(y))
+            }
+            
+        }
+        
+        return dict
     }
     
 }
