@@ -9,19 +9,31 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    
+    typealias CoordSet = [String: (CGFloat,CGFloat)]
 
     let lifeModel = LifeModel.sharedInstance
+    var coordArray: CoordSet!
     
     override func didMoveToView(view: SKView) {
         
         backgroundColor = SKColor.lightGrayColor()
         
-        let coordArray = LifeModel.sharedInstance.generateSet()
-        for (x, y) in coordArray.values {
+        lifeModel.dimX = 500
+        lifeModel.dimY = 500
+        lifeModel.cellQuantity = 150
+        
+        lifeModel.generateSet()
+        
+        for item in lifeModel.cellSet {
             let squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(10, 10))
-            squareSprite.position = CGPointMake(x, y)
+            squareSprite.anchorPoint = CGPointMake(0, 0)
+            squareSprite.position = CGPointMake(item.1.0, item.1.1)
+            squareSprite.name = item.0
+            //println(item.0)
             addChild(squareSprite)
         }
+        
         
 
     }
@@ -32,6 +44,20 @@ class GameScene: SKScene {
     }
    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
+        for child in children {
+            child.removeFromParent()
+        }
+        
+        lifeModel.iterateSet()
+        
+        for item in lifeModel.cellSet {
+            let squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(10, 10))
+            squareSprite.anchorPoint = CGPointMake(0, 0)
+            squareSprite.position = CGPointMake(item.1.0, item.1.1)
+            squareSprite.name = item.0
+            //println(item.0)
+            addChild(squareSprite)
+        }
+        
     }
 }

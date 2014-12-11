@@ -10,21 +10,39 @@ import UIKit
 
 class LifeModel: NSObject {
     
+    typealias CoordSet = [String: (CGFloat,CGFloat)]
+    
+    var dimX: Int
+    var dimY: Int
+    var cellQuantity: Int
+    var cellSet: CoordSet
+    
+    override init () {
+        dimX = 0
+        dimY = 0
+        cellQuantity = 0
+        cellSet = CoordSet()
+        super.init()
+    }
+    
     class var sharedInstance: LifeModel {
         struct Singleton {
             static let instance = LifeModel()
         }
+        
         return Singleton.instance
     }
+
     
-    func generateSet() -> [String: (CGFloat,CGFloat)] {
+    func generateSet() {
         
-        var dict = [String: (CGFloat,CGFloat)]()
+        var dict: CoordSet = CoordSet()
         
-        for i in 0...100 {
-            let arg = UInt32(60)
-            let x = arc4random_uniform(arg) * 10
-            let y = arc4random_uniform(arg) * 10
+        for i in 0...cellQuantity {
+            let argX = UInt32(Float(dimX)/10)
+            let argY = UInt32(Float(dimY)/10)
+            let x = arc4random_uniform(argX) * 10
+            let y = arc4random_uniform(argY) * 10
             let key = "\(x):\(y)"
             
             if (dict.indexForKey(key) == nil) {
@@ -33,7 +51,18 @@ class LifeModel: NSObject {
             
         }
         
-        return dict
+        cellSet = dict
+    }
+    
+    func iterateSet() {
+        
+        var newSet = CoordSet()
+        for item in cellSet {
+            newSet[item.0] = (item.1.0, item.1.1 + 1)
+        }
+        
+        cellSet = newSet
+        
     }
     
 }
