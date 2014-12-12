@@ -21,7 +21,7 @@ class GameScene: SKScene {
         
         lifeModel.dimX = 500
         lifeModel.dimY = 500
-        lifeModel.cellQuantity = 150
+        lifeModel.cellQuantity = 400
         
         lifeModel.generateSet()
         

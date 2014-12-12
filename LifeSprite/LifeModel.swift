@@ -54,12 +54,67 @@ class LifeModel: NSObject {
         cellSet = dict
     }
     
+    func generateNeighborCoord(coordString: String) -> Array<String> {
+        
+        var neighborSet = Array<String>()
+        
+        var xCoord = coordString.componentsSeparatedByString(":")[0].toInt()
+        var yCoord = coordString.componentsSeparatedByString(":")[1].toInt()
+        
+        for xDelta in -1...1 {
+            for yDelta in -1...1 {
+                if (xDelta == 0 && yDelta == 0) {
+                    continue
+                } else {
+                    let newXCoord = xCoord! + xDelta
+                    let newYCoord = yCoord! + yDelta
+                    neighborSet.append("\(newXCoord):\(newYCoord)")
+                }
+            }
+        }
+        
+        return neighborSet
+    }
+    
     func iterateSet() {
         
         var newSet = CoordSet()
+        var candidateForBirth = Dictionary<String, Int>()
+        
         for item in cellSet {
-            newSet[item.0] = (item.1.0, item.1.1 + 1)
+            
+            let neighbors = generateNeighborCoord(item.0)
+            var count = 0
+            
+            for neighbor in neighbors {
+                if cellSet.indexForKey(neighbor) != nil {
+                    count++
+                } else {
+                    if candidateForBirth.indexForKey(neighbor) != nil {
+                        candidateForBirth[neighbor] = candidateForBirth[neighbor]! + 1
+                    } else {
+                        candidateForBirth[neighbor] = 1
+                    }
+                }
+            }
+            
+            if (count == 2 || count == 3) {
+                newSet[item.0] = (item.1.0, item.1.1)
+            }
+
         }
+        
+        //println(candidateForBirth)
+        
+        for candidate in candidateForBirth {
+            if candidate.1 == 3 {
+                var xCoord = candidate.0.componentsSeparatedByString(":")[0].toInt()
+                var yCoord = candidate.0.componentsSeparatedByString(":")[1].toInt()
+                newSet["\(xCoord):\(yCoord)"] = (CGFloat(xCoord!), CGFloat(yCoord!))
+            }
+        }
+        
+        //println(newSet.count)
         
         cellSet = newSet
         
