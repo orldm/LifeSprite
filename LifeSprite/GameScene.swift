@@ -38,10 +38,22 @@ class GameScene: SKScene {
 
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        /* Called when a touch begins */
-        
-    }
+//    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+//        for child in children {
+//            child.removeFromParent()
+//        }
+//        
+//        lifeModel.iterateSet()
+//        
+//        for item in lifeModel.cellSet {
+//            let squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(10, 10))
+//            squareSprite.anchorPoint = CGPointMake(0, 0)
+//            squareSprite.position = CGPointMake(item.1.0, item.1.1)
+//            squareSprite.name = item.0
+//            //println(item.0)
+//            addChild(squareSprite)
+//        }
+//    }
    
     override func update(currentTime: CFTimeInterval) {
         for child in children {
