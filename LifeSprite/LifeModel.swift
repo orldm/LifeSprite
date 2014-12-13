@@ -56,7 +56,7 @@ class LifeModel: NSObject {
         //cellSet = generateGliderAt(200, y: 400)
     }
     
-    func generateNeighborCoord(coordString: String) -> Array<String> {
+    func generateNeighborCoord(coordString: String) -> [String] {
         
         var neighborSet = Array<String>()
         
@@ -70,10 +70,10 @@ class LifeModel: NSObject {
                 } else {
                     var newXCoord = (xCoord! + xDelta * 10)
                     if newXCoord < 0 {newXCoord = dimX + newXCoord}
-                    if newXCoord > dimX {newXCoord = newXCoord - dimX}
+                    if newXCoord >= dimX {newXCoord = newXCoord - dimX}
                     var newYCoord = (yCoord! + yDelta * 10)
                     if newYCoord < 0 { newYCoord = dimY + newYCoord}
-                    if newYCoord > dimY {newYCoord = newYCoord - dimY}
+                    if newYCoord >= dimY {newYCoord = newYCoord - dimY}
                     
                     
                     neighborSet.append("\(newXCoord):\(newYCoord)")
