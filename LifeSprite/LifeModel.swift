@@ -8,6 +8,21 @@
 
 import UIKit
 
+extension String {
+    init(point: CGPoint) {
+        self = "\(Int(point.x)):\(Int(point.y))"
+    }
+}
+
+extension CGPoint {
+    init(string: String) {
+        let components = string.componentsSeparatedByString(":")
+        let xCoord = components[0].toInt()
+        let yCoord = components[1].toInt()
+        self = CGPoint(x: CGFloat(xCoord!), y: CGFloat(yCoord!))
+    }
+}
+
 class LifeModel: NSObject {
     
     typealias CoordSet = [String: (CGFloat,CGFloat)]
