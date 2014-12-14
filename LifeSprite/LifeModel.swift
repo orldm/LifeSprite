@@ -27,16 +27,19 @@ class LifeModel: NSObject {
     
     typealias CoordSet = [String: (CGFloat,CGFloat)]
     
-    var dimX: Int
-    var dimY: Int
+    var dimX: UInt32
+    var dimY: UInt32
     var cellQuantity: Int
     var cellSet: CoordSet
+    var cellArray: Array<UInt32>
     
     override init () {
         dimX = 0
         dimY = 0
         cellQuantity = 0
         cellSet = CoordSet()
+        let count = Int(dimX*dimY)
+        cellArray = Array<UInt32>(count: count, repeatedValue: 0)
         super.init()
     }
     
@@ -56,48 +59,43 @@ class LifeModel: NSObject {
         for i in 0...cellQuantity {
             let argX = UInt32(Float(dimX)/10)
             let argY = UInt32(Float(dimY)/10)
-            let x = arc4random_uniform(argX) * 10
-            let y = arc4random_uniform(argY) * 10
-            let key = "\(x):\(y)"
+            let x = Int(arc4random_uniform(argX) * 10)
+            let y = Int(arc4random_uniform(argY) * 10)
             
-            if (dict.indexForKey(key) == nil) {
-                dict[key] = (CGFloat(x),CGFloat(y))
-            }
+            cellArray[x + y*x] = 1
             
         }
-        
-        cellSet = dict
         
         //cellSet = generateGliderAt(200, y: 400)
     }
     
-    func generateNeighborCoord(coordString: String) -> [String] {
-        
-        var neighborSet = Array<String>()
-        
-        var xCoord = coordString.componentsSeparatedByString(":")[0].toInt()
-        var yCoord = coordString.componentsSeparatedByString(":")[1].toInt()
-        
-        for xDelta in -1...1 {
-            for yDelta in -1...1 {
-                if (xDelta == 0 && yDelta == 0) {
-                    continue
-                } else {
-                    var newXCoord = (xCoord! + xDelta * 10)
-                    if newXCoord < 0 {newXCoord = dimX + newXCoord}
-                    if newXCoord >= dimX {newXCoord = newXCoord - dimX}
-                    var newYCoord = (yCoord! + yDelta * 10)
-                    if newYCoord < 0 { newYCoord = dimY + newYCoord}
-                    if newYCoord >= dimY {newYCoord = newYCoord - dimY}
-                    
-                    
-                    neighborSet.append("\(newXCoord):\(newYCoord)")
-                }
-            }
-        }
-        
-        return neighborSet
-    }
+//    func generateNeighborCoord(coordString: String) -> [String] {
+//        
+//        var neighborSet = Array<String>()
+//        
+//        var xCoord = coordString.componentsSeparatedByString(":")[0].toInt()
+//        var yCoord = coordString.componentsSeparatedByString(":")[1].toInt()
+//        
+//        for xDelta in -1...1 {
+//            for yDelta in -1...1 {
+//                if (xDelta == 0 && yDelta == 0) {
+//                    continue
+//                } else {
+//                    var newXCoord = (xCoord! + xDelta * 10)
+//                    if newXCoord < 0 {newXCoord = dimX + newXCoord}
+//                    if newXCoord >= dimX {newXCoord = newXCoord - dimX}
+//                    var newYCoord = (yCoord! + yDelta * 10)
+//                    if newYCoord < 0 { newYCoord = dimY + newYCoord}
+//                    if newYCoord >= dimY {newYCoord = newYCoord - dimY}
+//                    
+//                    
+//                    neighborSet.append("\(newXCoord):\(newYCoord)")
+//                }
+//            }
+//        }
+//        
+//        return neighborSet
+//    }
     
     func generateGliderAt(x:Int, y:Int) -> CoordSet {
         var gliderSet = CoordSet()
@@ -120,53 +118,85 @@ class LifeModel: NSObject {
         return gliderSet
     }
     
-    func iterateSet() {
+//    func iterateSetOld() {
+//        
+//        var newSet = CoordSet()
+//        var candidateForBirth = Dictionary<String, Int>()
+//        
+//        //println(cellSet.count)
+//
+//        
+//        for item in cellSet {
+//            
+//            //println(item)
+//            
+//            let neighbors = generateNeighborCoord(item.0)
+//            var count = 0
+//            
+//            for neighbor in neighbors {
+//                if cellSet.indexForKey(neighbor) != nil {
+//                    count++
+//                } else {
+//                    if candidateForBirth.indexForKey(neighbor) != nil {
+//                        candidateForBirth[neighbor] = candidateForBirth[neighbor]! + 1
+//                    } else {
+//                        candidateForBirth[neighbor] = 1
+//                    }
+//                }
+//            }
+//            
+//            if (count == 2 || count == 3) {
+//                newSet[item.0] = (item.1.0, item.1.1)
+//            }
+//
+//        }
+//        
+//        //println(candidateForBirth)
+//        
+//        for candidate in candidateForBirth {
+//            if candidate.1 == 3 {
+//                var xCoord = candidate.0.componentsSeparatedByString(":")[0].toInt()
+//                var yCoord = candidate.0.componentsSeparatedByString(":")[1].toInt()
+//                newSet["\(xCoord!):\(yCoord!)"] = (CGFloat(xCoord!), CGFloat(yCoord!))
+//            }
+//        }
+//        
+//        //println(newSet.keys)
+//        
+//        cellSet = newSet
+//        
+//    }
+    
+    func generateNeighborCoordinates(coord: Int) -> Array<Int> {
         
-        var newSet = CoordSet()
-        var candidateForBirth = Dictionary<String, Int>()
+        var coordArray = Array<Int>(count: 8, repeatedValue: 0)
         
-        //println(cellSet.count)
-
-        
-        for item in cellSet {
-            
-            //println(item)
-            
-            let neighbors = generateNeighborCoord(item.0)
-            var count = 0
-            
-            for neighbor in neighbors {
-                if cellSet.indexForKey(neighbor) != nil {
-                    count++
+        for xDelta in -1...1 {
+            for yDelta in -1...1 {
+                if (xDelta == 0 && yDelta == 0) {
+                    continue
                 } else {
-                    if candidateForBirth.indexForKey(neighbor) != nil {
-                        candidateForBirth[neighbor] = candidateForBirth[neighbor]! + 1
-                    } else {
-                        candidateForBirth[neighbor] = 1
-                    }
+                    
+                    // TODO: implement correct array number calculation
+                    
                 }
             }
-            
-            if (count == 2 || count == 3) {
-                newSet[item.0] = (item.1.0, item.1.1)
-            }
-
         }
         
-        //println(candidateForBirth)
+        return coordArray
+    
+    }
+    
+    func iterateSet() {
         
-        for candidate in candidateForBirth {
-            if candidate.1 == 3 {
-                var xCoord = candidate.0.componentsSeparatedByString(":")[0].toInt()
-                var yCoord = candidate.0.componentsSeparatedByString(":")[1].toInt()
-                newSet["\(xCoord!):\(yCoord!)"] = (CGFloat(xCoord!), CGFloat(yCoord!))
+        let count = Int(dimX*dimY)
+        var newCellArray = Array<UInt32>(count: count, repeatedValue: 0)
+        
+        for i in 0..<count {
+            if cellArray[i] == 1 {
+                let neighbors = generateNeighborCoordinates(i)
             }
         }
-        
-        //println(newSet.keys)
-        
-        cellSet = newSet
-        
         
     }
     
