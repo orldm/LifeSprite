@@ -28,8 +28,8 @@ class GameScene: SKScene {
         for item in lifeModel.cellSet {
             let squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(8, 8))
             squareSprite.anchorPoint = CGPointMake(0, 0)
-            squareSprite.position = CGPointMake(item.1.0 + 1, item.1.1 + 1)
-            squareSprite.name = item.0
+            squareSprite.position = CGPoint(x: item.x + 1, y: item.y + 1)
+            //squareSprite.name = item.0
             //println(item.0)
             addChild(squareSprite)
         }
@@ -65,8 +65,8 @@ class GameScene: SKScene {
         for item in lifeModel.cellSet {
             let squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(8, 8))
             squareSprite.anchorPoint = CGPointMake(0, 0)
-            squareSprite.position = CGPointMake(item.1.0 + 1, item.1.1 + 1)
-            squareSprite.name = item.0
+            squareSprite.position = CGPoint(x: item.x + 1, y: item.y + 1)
+            //squareSprite.name = item.0
             //println(item.0)
             addChild(squareSprite)
         }
