@@ -18,24 +18,24 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         
         backgroundColor = SKColor.lightGrayColor()
-        
-        lifeModel.dimX = 500
-        lifeModel.dimY = 500
-        lifeModel.cellQuantity = 400
+
         
         lifeModel.generateSet()
         
-        for item in lifeModel.cellSet {
+        for i in 0..<lifeModel.cellArray.count {
+            
             let squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(8, 8))
             squareSprite.anchorPoint = CGPointMake(0, 0)
-            squareSprite.position = CGPointMake(item.1.0 + 1, item.1.1 + 1)
-            squareSprite.name = item.0
-            //println(item.0)
+            let xPos = i % Int(lifeModel.dimX)
+            let yPos = (i - xPos)/Int(lifeModel.dimY)
+            squareSprite.position = CGPoint(x: CGFloat(xPos)*10, y: CGFloat(yPos)*10)
+            
+            if (lifeModel.cellArray[i] == false) {
+                squareSprite.hidden = true
+            }
+            
             addChild(squareSprite)
         }
-        
-        
-
     }
     
 //    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -56,19 +56,22 @@ class GameScene: SKScene {
 //    }
    
     override func update(currentTime: CFTimeInterval) {
-        for child in children {
-            child.removeFromParent()
-        }
-        
         lifeModel.iterateSet()
         
-        for item in lifeModel.cellSet {
-            let squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(8, 8))
-            squareSprite.anchorPoint = CGPointMake(0, 0)
-            squareSprite.position = CGPointMake(item.1.0 + 1, item.1.1 + 1)
-            squareSprite.name = item.0
-            //println(item.0)
-            addChild(squareSprite)
+        var i = 0
+        
+        for node in self.children {
+            
+            if let sprite = node as? SKSpriteNode {
+                
+                if lifeModel.cellArray[i] == true {
+                    
+                    sprite.hidden = false
+                } else {
+                    sprite.hidden = true
+                }
+            }
+            i++
         }
         
     }

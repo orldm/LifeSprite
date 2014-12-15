@@ -31,15 +31,15 @@ class LifeModel: NSObject {
     var dimY: UInt32
     var cellQuantity: Int
     var cellSet: CoordSet
-    var cellArray: Array<UInt32>
+    var cellArray: Array<Bool>
     
     override init () {
-        dimX = 0
-        dimY = 0
-        cellQuantity = 0
+        dimX = 50
+        dimY = 50
+        cellQuantity = 100
         cellSet = CoordSet()
         let count = Int(dimX*dimY)
-        cellArray = Array<UInt32>(count: count, repeatedValue: 0)
+        cellArray = Array<Bool>(count: count, repeatedValue: false)
         super.init()
     }
     
@@ -54,15 +54,14 @@ class LifeModel: NSObject {
     
     func generateSet() {
         
-        var dict: CoordSet = CoordSet()
         
         for i in 0...cellQuantity {
-            let argX = UInt32(Float(dimX)/10)
-            let argY = UInt32(Float(dimY)/10)
-            let x = Int(arc4random_uniform(argX) * 10)
-            let y = Int(arc4random_uniform(argY) * 10)
             
-            cellArray[x + y*x] = 1
+            let x = arc4random_uniform(dimX - 1)
+            let y = arc4random_uniform(dimY - 1)
+            
+            
+            cellArray[Int(x + y*x)] = true
             
         }
         
@@ -190,13 +189,20 @@ class LifeModel: NSObject {
     func iterateSet() {
         
         let count = Int(dimX*dimY)
-        var newCellArray = Array<UInt32>(count: count, repeatedValue: 0)
+        var newCellArray = Array<Bool>(count: count, repeatedValue: false)
         
         for i in 0..<count {
-            if cellArray[i] == 1 {
-                let neighbors = generateNeighborCoordinates(i)
+            if cellArray[i] == true {
+                //let neighbors = generateNeighborCoordinates(i)
+                if i != count - 1 {
+                    newCellArray[i+1] = true
+                } else {
+                    newCellArray[0] = true
+                }
             }
         }
+        
+        cellArray = newCellArray
         
     }
     
