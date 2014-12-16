@@ -38,24 +38,7 @@ class GameScene: SKScene {
         }
     }
     
-//    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-//        for child in children {
-//            child.removeFromParent()
-//        }
-//        
-//        lifeModel.iterateSet()
-//        
-//        for item in lifeModel.cellSet {
-//            let squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(10, 10))
-//            squareSprite.anchorPoint = CGPointMake(0, 0)
-//            squareSprite.position = CGPointMake(item.1.0, item.1.1)
-//            squareSprite.name = item.0
-//            //println(item.0)
-//            addChild(squareSprite)
-//        }
-//    }
-   
-    override func update(currentTime: CFTimeInterval) {
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         lifeModel.iterateSet()
         
         var i = 0
@@ -73,6 +56,26 @@ class GameScene: SKScene {
             }
             i++
         }
-        
     }
+   
+//    override func update(currentTime: CFTimeInterval) {
+//        lifeModel.iterateSet()
+//        
+//        var i = 0
+//        
+//        for node in self.children {
+//            
+//            if let sprite = node as? SKSpriteNode {
+//                
+//                if lifeModel.cellArray[i] == true {
+//                    
+//                    sprite.hidden = false
+//                } else {
+//                    sprite.hidden = true
+//                }
+//            }
+//            i++
+//        }
+//        
+//    }
 }

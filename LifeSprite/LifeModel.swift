@@ -32,14 +32,15 @@ class LifeModel: NSObject {
     var cellQuantity: Int
     var cellSet: CoordSet
     var cellArray: Array<Bool>
+    var arrayCapacity: Int!
     
     override init () {
         dimX = 50
         dimY = 50
         cellQuantity = 100
         cellSet = CoordSet()
-        let count = Int(dimX*dimY)
-        cellArray = Array<Bool>(count: count, repeatedValue: false)
+        arrayCapacity = Int(dimX*dimY)
+        cellArray = Array<Bool>(count: arrayCapacity, repeatedValue: false)
         super.init()
     }
     
@@ -169,6 +170,8 @@ class LifeModel: NSObject {
     func generateNeighborCoordinates(coord: Int) -> Array<Int> {
         
         var coordArray = Array<Int>(count: 8, repeatedValue: 0)
+        var oldX = coord % Int(dimX)
+        var oldY = (coord - oldX) / Int(dimY)
         
         for xDelta in -1...1 {
             for yDelta in -1...1 {
@@ -176,8 +179,20 @@ class LifeModel: NSObject {
                     continue
                 } else {
                     
-                    // TODO: implement correct array number calculation
+                    var newX = oldX + xDelta
+                    var newY = oldY + yDelta
                     
+                    if newX < 0 {newX = Int(dimX) + newX}
+                    if newX >= Int(dimX) {newX = newX - Int(dimX)}
+                    
+                    if newY < 0 {newY = Int(dimY) + newY}
+                    if newY >= Int(dimY) {newY = newY - Int(dimY)}
+                    
+                    
+                    var newCoord = newX + Int(dimY) * newY
+                    //if newCoord < 0 { newCoord = arrayCapacity + newCoord}
+                    //if newCoord > arrayCapacity { newCoord = newCoord - arrayCapacity }
+                    coordArray.append(newCoord)
                 }
             }
         }
@@ -188,22 +203,23 @@ class LifeModel: NSObject {
     
     func iterateSet() {
         
-        let count = Int(dimX*dimY)
-        var newCellArray = Array<Bool>(count: count, repeatedValue: false)
+        //let count = Int(dimX*dimY)
+        var newCellArray = Array<Bool>(count: arrayCapacity, repeatedValue: false)
         
-        for i in 0..<count {
+        for i in 0..<arrayCapacity {
+            
+            let neighbors = generateNeighborCoordinates(i)
+            var neighborCount = 0
+            for neighbor in neighbors {
+                if cellArray[neighbor] == true { neighborCount++ }
+            }
+            
             if cellArray[i] == true {
-                //let neighbors = generateNeighborCoordinates(i)
-                if i != count - 1 {
-                    newCellArray[i+1] = true
-                } else {
-                    newCellArray[0] = true
-                }
+                if neighborCount == 2 || neighborCount == 3 { newCellArray[i] = true }
+            } else {
+                if neighborCount == 3 { newCellArray[i] = true }
             }
         }
-        
         cellArray = newCellArray
-        
     }
-    
 }
