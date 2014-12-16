@@ -37,7 +37,7 @@ class LifeModel: NSObject {
     override init () {
         dimX = 50
         dimY = 50
-        cellQuantity = 100
+        cellQuantity = 200
         cellSet = CoordSet()
         arrayCapacity = Int(dimX*dimY)
         cellArray = Array<Bool>(count: arrayCapacity, repeatedValue: false)
@@ -167,11 +167,13 @@ class LifeModel: NSObject {
 //        
 //    }
     
-    func generateNeighborCoordinates(coord: Int) -> Array<Int> {
+    func generateNeighborCoordinates(coord: Int) -> Int {
         
         var coordArray = Array<Int>()
         var oldX = coord % Int(dimX)
         var oldY = (coord - oldX) / Int(dimY)
+        
+        var neighborCount = 0
         
         for xDelta in -1...1 {
             for yDelta in -1...1 {
@@ -190,14 +192,13 @@ class LifeModel: NSObject {
                     
                     
                     var newCoord = newX + Int(dimY) * newY
-                    //if newCoord < 0 { newCoord = arrayCapacity + newCoord}
-                    //if newCoord > arrayCapacity { newCoord = newCoord - arrayCapacity }
-                    coordArray.append(newCoord)
+                    
+                    if cellArray[newCoord] == true { neighborCount++ }
                 }
             }
         }
         
-        return coordArray
+        return neighborCount
     
     }
     
@@ -208,11 +209,8 @@ class LifeModel: NSObject {
         
         for i in 0..<arrayCapacity {
             
-            let neighbors = generateNeighborCoordinates(i)
-            var neighborCount = 0
-            for neighbor in neighbors {
-                if cellArray[neighbor] == true { neighborCount++ }
-            }
+            let neighborCount = generateNeighborCoordinates(i)
+            
             
             if cellArray[i] == true {
                 if neighborCount == 2 || neighborCount == 3 { newCellArray[i] = true }
