@@ -169,7 +169,7 @@ class LifeModel: NSObject {
     
     func generateNeighborCoordinates(coord: Int) -> Array<Int> {
         
-        var coordArray = Array<Int>(count: 8, repeatedValue: 0)
+        var coordArray = Array<Int>()
         var oldX = coord % Int(dimX)
         var oldY = (coord - oldX) / Int(dimY)
         

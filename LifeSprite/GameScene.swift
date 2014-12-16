@@ -38,27 +38,7 @@ class GameScene: SKScene {
         }
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        lifeModel.iterateSet()
-        
-        var i = 0
-        
-        for node in self.children {
-            
-            if let sprite = node as? SKSpriteNode {
-                
-                if lifeModel.cellArray[i] == true {
-                    
-                    sprite.hidden = false
-                } else {
-                    sprite.hidden = true
-                }
-            }
-            i++
-        }
-    }
-   
-//    override func update(currentTime: CFTimeInterval) {
+//    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
 //        lifeModel.iterateSet()
 //        
 //        var i = 0
@@ -76,6 +56,26 @@ class GameScene: SKScene {
 //            }
 //            i++
 //        }
-//        
 //    }
+   
+    override func update(currentTime: CFTimeInterval) {
+        lifeModel.iterateSet()
+        
+        var i = 0
+        
+        for node in self.children {
+            
+            if let sprite = node as? SKSpriteNode {
+                
+                if lifeModel.cellArray[i] == true {
+                    
+                    sprite.hidden = false
+                } else {
+                    sprite.hidden = true
+                }
+            }
+            i++
+        }
+        
+    }
 }
