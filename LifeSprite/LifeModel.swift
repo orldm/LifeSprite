@@ -21,8 +21,8 @@ class LifeModel: NSObject {
     
     override init () {
         dimX = 60
-        dimY = 80
-        cellQuantity = 600
+        dimY = 60
+        cellQuantity = 400
         //cellSet = CoordSet()
         arrayCapacity = Int(dimX*dimY)
         cellArray = Array<Int32>(count: arrayCapacity, repeatedValue: 0)

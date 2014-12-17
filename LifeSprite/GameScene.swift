@@ -23,11 +23,11 @@ class GameScene: SKScene {
         
         for i in 0..<lifeModel.cellArray.count {
             
-            let squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(8, 8))
+            let squareSprite = SKSpriteNode(color: UIColor.darkGrayColor(), size: CGSizeMake(8, 8))
             squareSprite.anchorPoint = CGPointMake(0, 0)
             let xPos = i % Int(lifeModel.dimX)
             let yPos = (i - xPos)/Int(lifeModel.dimX)
-            squareSprite.position = CGPoint(x: CGFloat(xPos)*10 + 100, y: CGFloat(yPos)*10 + 100)
+            squareSprite.position = CGPoint(x: CGFloat(xPos)*10 + 100, y: CGFloat(yPos)*10 + 200)
             
             if (lifeModel.cellArray[i] == 0) {
                 squareSprite.hidden = true
