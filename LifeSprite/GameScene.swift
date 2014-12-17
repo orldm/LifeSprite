@@ -27,8 +27,8 @@ class GameScene: SKScene {
             let squareSprite = SKSpriteNode(color: UIColor.blueColor(), size: CGSizeMake(8, 8))
             squareSprite.anchorPoint = CGPointMake(0, 0)
             let xPos = i % Int(lifeModel.dimX)
-            let yPos = (i - xPos)/Int(lifeModel.dimY)
-            squareSprite.position = CGPoint(x: CGFloat(xPos)*10, y: CGFloat(yPos)*10)
+            let yPos = (i - xPos)/Int(lifeModel.dimX)
+            squareSprite.position = CGPoint(x: CGFloat(xPos)*10 + 100, y: CGFloat(yPos)*10 + 100)
             
             if (lifeModel.cellArray[i] == false) {
                 squareSprite.hidden = true
