@@ -16,7 +16,7 @@ class LifeModel: NSObject {
     var dimY: UInt32
     var cellQuantity: Int
     //var cellSet: CoordSet
-    var cellArray: Array<Bool>
+    var cellArray: Array<Int32>
     var arrayCapacity: Int!
     
     override init () {
@@ -25,7 +25,7 @@ class LifeModel: NSObject {
         cellQuantity = 600
         //cellSet = CoordSet()
         arrayCapacity = Int(dimX*dimY)
-        cellArray = Array<Bool>(count: arrayCapacity, repeatedValue: false)
+        cellArray = Array<Int32>(count: arrayCapacity, repeatedValue: 0)
         super.init()
     }
     
@@ -45,7 +45,7 @@ class LifeModel: NSObject {
             let x = arc4random_uniform(dimX - 1)
             let y = arc4random_uniform(dimY - 1)
             
-            cellArray[Int(x + y*dimX)] = true
+            cellArray[Int(x + y*dimX)] = 1
         }
     }
     
@@ -71,54 +71,51 @@ class LifeModel: NSObject {
 //    }
     
     
-    func generateNeighborCoordinates(coord: Int) -> Int {
-        
-        var coordArray = Array<Int>()
-        var oldX = coord % Int(dimX)
-        var oldY = (coord - oldX) / Int(dimX)
-        
-        var neighborCount = 0
-        
-        for xDelta in -1...1 {
-            for yDelta in -1...1 {
-                if (xDelta == 0 && yDelta == 0) {
-                    continue
-                } else {
-                    
-                    var newX = oldX + xDelta
-                    var newY = oldY + yDelta
-                    
-                    if newX < 0 {newX = Int(dimX) + newX}
-                    if newX >= Int(dimX) {newX = newX - Int(dimX)}
-                    
-                    if newY < 0 {newY = Int(dimY) + newY}
-                    if newY >= Int(dimY) {newY = newY - Int(dimY)}
-                    
-                    
-                    var newCoord = newX + Int(dimX) * newY
-                    
-                    if cellArray[newCoord] == true { neighborCount++ }
-                }
-            }
-        }
-        
-        return neighborCount
-    
-    }
+//    func generateNeighborCoordinates(coord: Int) -> Int {
+//        
+//        //var coordArray = Array<Int>()
+//        var oldX = coord % Int(dimX)
+//        var oldY = (coord - oldX) / Int(dimX)
+//        
+//        var neighborCount = 0
+//        
+//        for xDelta in -1...1 {
+//            for yDelta in -1...1 {
+//                if (xDelta == 0 && yDelta == 0) {
+//                    continue
+//                } else {
+//                    
+//                    var newX = oldX + xDelta
+//                    var newY = oldY + yDelta
+//                    
+//                    if newX < 0 {newX = Int(dimX) + newX}
+//                    if newX >= Int(dimX) {newX = newX - Int(dimX)}
+//                    
+//                    if newY < 0 {newY = Int(dimY) + newY}
+//                    if newY >= Int(dimY) {newY = newY - Int(dimY)}
+//                    
+//                    
+//                    var newCoord = newX + Int(dimX) * newY
+//                    
+//                    if cellArray[newCoord] == true { neighborCount++ }
+//                }
+//            }
+//        }
+//        return neighborCount
+//    }
     
     func iterateSet() {
         
-        var newCellArray = Array<Bool>(count: arrayCapacity, repeatedValue: false)
+        var newCellArray = Array<Int32>(count: arrayCapacity, repeatedValue: 0)
         
         for i in 0..<arrayCapacity {
             
-            let neighborCount = generateNeighborCoordinates(i)
+            let neighborCount = generateNeighborCoordinates(Int32(i), Int32(dimX), Int32(dimY), UnsafeMutablePointer(cellArray))
             
-            
-            if cellArray[i] == true {
-                if neighborCount == 2 || neighborCount == 3 { newCellArray[i] = true }
+            if cellArray[i] == 1 {
+                if neighborCount == 2 || neighborCount == 3 { newCellArray[i] = 1 }
             } else {
-                if neighborCount == 3 { newCellArray[i] = true }
+                if neighborCount == 3 { newCellArray[i] = 1 }
             }
         }
         cellArray = newCellArray

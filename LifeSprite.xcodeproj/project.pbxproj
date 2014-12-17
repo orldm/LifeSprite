@@ -16,6 +16,7 @@
 		F673223A1A37816D00C69A39 /* LifeSpriteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67322391A37816D00C69A39 /* LifeSpriteTests.swift */; };
 		F67322441A3784E200C69A39 /* LifeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67322431A3784E200C69A39 /* LifeModel.swift */; };
 		F67322461A378B6F00C69A39 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67322451A378B6F00C69A39 /* SpriteKit.framework */; };
+		F6F73F4F1A421D6200CDDE54 /* LifeFunc.c in Sources */ = {isa = PBXBuildFile; fileRef = F6F73F4D1A421D6200CDDE54 /* LifeFunc.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,9 @@
 		F67322391A37816D00C69A39 /* LifeSpriteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeSpriteTests.swift; sourceTree = "<group>"; };
 		F67322431A3784E200C69A39 /* LifeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifeModel.swift; sourceTree = "<group>"; };
 		F67322451A378B6F00C69A39 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		F6F73F4C1A421D6100CDDE54 /* LifeSprite-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LifeSprite-Bridging-Header.h"; sourceTree = "<group>"; };
+		F6F73F4D1A421D6200CDDE54 /* LifeFunc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LifeFunc.c; sourceTree = "<group>"; };
+		F6F73F4E1A421D6200CDDE54 /* LifeFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeFunc.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,12 +90,15 @@
 			children = (
 				F673221F1A37816D00C69A39 /* AppDelegate.swift */,
 				F67322231A37816D00C69A39 /* GameScene.swift */,
+				F6F73F4E1A421D6200CDDE54 /* LifeFunc.h */,
+				F6F73F4D1A421D6200CDDE54 /* LifeFunc.c */,
 				F67322431A3784E200C69A39 /* LifeModel.swift */,
 				F67322251A37816D00C69A39 /* GameViewController.swift */,
 				F67322271A37816D00C69A39 /* Main.storyboard */,
 				F673222A1A37816D00C69A39 /* Images.xcassets */,
 				F673222C1A37816D00C69A39 /* LaunchScreen.xib */,
 				F673221D1A37816D00C69A39 /* Supporting Files */,
+				F6F73F4C1A421D6100CDDE54 /* LifeSprite-Bridging-Header.h */,
 			);
 			path = LifeSprite;
 			sourceTree = "<group>";
@@ -226,6 +233,7 @@
 				F67322261A37816D00C69A39 /* GameViewController.swift in Sources */,
 				F67322201A37816D00C69A39 /* AppDelegate.swift in Sources */,
 				F67322441A3784E200C69A39 /* LifeModel.swift in Sources */,
+				F6F73F4F1A421D6200CDDE54 /* LifeFunc.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,9 +358,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = LifeSprite/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LifeSprite/LifeSprite-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -360,9 +371,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = LifeSprite/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LifeSprite/LifeSprite-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -419,6 +432,7 @@
 				F673223F1A37816D00C69A39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F67322401A37816D00C69A39 /* Build configuration list for PBXNativeTarget "LifeSpriteTests" */ = {
 			isa = XCConfigurationList;
@@ -427,6 +441,7 @@
 				F67322421A37816D00C69A39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

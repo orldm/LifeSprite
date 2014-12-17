@@ -18,7 +18,6 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         
         backgroundColor = SKColor.lightGrayColor()
-
         
         lifeModel.generateSet()
         
@@ -30,7 +29,7 @@ class GameScene: SKScene {
             let yPos = (i - xPos)/Int(lifeModel.dimX)
             squareSprite.position = CGPoint(x: CGFloat(xPos)*10 + 100, y: CGFloat(yPos)*10 + 100)
             
-            if (lifeModel.cellArray[i] == false) {
+            if (lifeModel.cellArray[i] == 0) {
                 squareSprite.hidden = true
             }
             
@@ -67,7 +66,7 @@ class GameScene: SKScene {
             
             if let sprite = node as? SKSpriteNode {
                 
-                if lifeModel.cellArray[i] == true {
+                if lifeModel.cellArray[i] == 1 {
                     
                     sprite.hidden = false
                 } else {
