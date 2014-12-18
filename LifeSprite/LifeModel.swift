@@ -106,18 +106,7 @@ class LifeModel: NSObject {
     
     func iterateSet() {
         
-        var newCellArray = Array<Int32>(count: arrayCapacity, repeatedValue: 0)
-        
-        for i in 0..<arrayCapacity {
-            
-            let neighborCount = generateNeighborCoordinates(Int32(i), Int32(dimX), Int32(dimY), UnsafeMutablePointer(cellArray))
-            
-            if cellArray[i] == 1 {
-                if neighborCount == 2 || neighborCount == 3 { newCellArray[i] = 1 }
-            } else {
-                if neighborCount == 3 { newCellArray[i] = 1 }
-            }
-        }
-        cellArray = newCellArray
+        iterateSetInC(Int32(arrayCapacity), Int32(dimX), Int32(dimY), &cellArray)
+
     }
 }

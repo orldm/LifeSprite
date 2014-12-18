@@ -14,3 +14,4 @@
 #endif /* defined(__LifeSprite__LifeFunc__) */
 
 int generateNeighborCoordinates(int coord, int dimX, int dimY, int cellArray[]);
+void iterateSetInC(int arrayCapacity, int dimX, int dimY, int *cellArray);

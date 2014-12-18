@@ -8,7 +8,7 @@
 
 #include "LifeFunc.h"
 
-int generateNeighborCoordinates(int coord, int dimX, int dimY, int cellArray[]) {
+int generateNeighborCoordinates(int coord, int dimX, int dimY, int *cellArray) {
     
     int oldX = coord % dimX;
     int oldY = (coord - oldX) / dimX;
@@ -39,4 +39,30 @@ int generateNeighborCoordinates(int coord, int dimX, int dimY, int cellArray[]) 
         }
     }
     return neighborCount;
+}
+
+void iterateSetInC(int arrayCapacity, int dimX, int dimY, int *cellArray) {
+    
+    int newCellArray[arrayCapacity];
+    int neighborCount;
+    
+    for (int i = 0; i < arrayCapacity; i++ ){
+        
+        newCellArray[i] = 0;
+        
+        neighborCount = generateNeighborCoordinates(i, dimX, dimY, cellArray);
+        
+        
+        if (cellArray[i] == 1) {
+            if ((neighborCount == 2) || (neighborCount == 3)) { newCellArray[i] = 1; }
+        } else {
+            if (neighborCount == 3) { newCellArray[i] = 1; }
+        }
+        
+    }
+    
+    for (int i = 0; i < arrayCapacity; i++ ){
+        
+        cellArray[i] = newCellArray[i];
+    }
 }
