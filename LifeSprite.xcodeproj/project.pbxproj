@@ -43,7 +43,6 @@
 		F67322451A378B6F00C69A39 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		F6F73F4C1A421D6100CDDE54 /* LifeSprite-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LifeSprite-Bridging-Header.h"; sourceTree = "<group>"; };
 		F6F73F4D1A421D6200CDDE54 /* LifeFunc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LifeFunc.c; sourceTree = "<group>"; };
-		F6F73F4E1A421D6200CDDE54 /* LifeFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeFunc.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +87,6 @@
 			children = (
 				F673221F1A37816D00C69A39 /* AppDelegate.swift */,
 				F67322231A37816D00C69A39 /* GameScene.swift */,
-				F6F73F4E1A421D6200CDDE54 /* LifeFunc.h */,
 				F6F73F4D1A421D6200CDDE54 /* LifeFunc.c */,
 				F67322251A37816D00C69A39 /* GameViewController.swift */,
 				F67322271A37816D00C69A39 /* Main.storyboard */,

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Bullet. All rights reserved.
 //
 
-#include "LifeFunc.h"
-
 int generateNeighborCoordinates(int coord, int dimX, int dimY, int *cellArray) {
     
     int oldX = coord % dimX;
