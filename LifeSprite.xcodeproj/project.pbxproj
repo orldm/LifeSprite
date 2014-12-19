@@ -14,7 +14,6 @@
 		F673222B1A37816D00C69A39 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F673222A1A37816D00C69A39 /* Images.xcassets */; };
 		F673222E1A37816D00C69A39 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F673222C1A37816D00C69A39 /* LaunchScreen.xib */; };
 		F673223A1A37816D00C69A39 /* LifeSpriteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67322391A37816D00C69A39 /* LifeSpriteTests.swift */; };
-		F67322441A3784E200C69A39 /* LifeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67322431A3784E200C69A39 /* LifeModel.swift */; };
 		F67322461A378B6F00C69A39 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F67322451A378B6F00C69A39 /* SpriteKit.framework */; };
 		F6F73F4F1A421D6200CDDE54 /* LifeFunc.c in Sources */ = {isa = PBXBuildFile; fileRef = F6F73F4D1A421D6200CDDE54 /* LifeFunc.c */; };
 /* End PBXBuildFile section */
@@ -41,7 +40,6 @@
 		F67322331A37816D00C69A39 /* LifeSpriteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeSpriteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F67322381A37816D00C69A39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F67322391A37816D00C69A39 /* LifeSpriteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeSpriteTests.swift; sourceTree = "<group>"; };
-		F67322431A3784E200C69A39 /* LifeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LifeModel.swift; sourceTree = "<group>"; };
 		F67322451A378B6F00C69A39 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		F6F73F4C1A421D6100CDDE54 /* LifeSprite-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LifeSprite-Bridging-Header.h"; sourceTree = "<group>"; };
 		F6F73F4D1A421D6200CDDE54 /* LifeFunc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LifeFunc.c; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 				F67322231A37816D00C69A39 /* GameScene.swift */,
 				F6F73F4E1A421D6200CDDE54 /* LifeFunc.h */,
 				F6F73F4D1A421D6200CDDE54 /* LifeFunc.c */,
-				F67322431A3784E200C69A39 /* LifeModel.swift */,
 				F67322251A37816D00C69A39 /* GameViewController.swift */,
 				F67322271A37816D00C69A39 /* Main.storyboard */,
 				F673222A1A37816D00C69A39 /* Images.xcassets */,
@@ -232,7 +229,6 @@
 				F67322241A37816D00C69A39 /* GameScene.swift in Sources */,
 				F67322261A37816D00C69A39 /* GameViewController.swift in Sources */,
 				F67322201A37816D00C69A39 /* AppDelegate.swift in Sources */,
-				F67322441A3784E200C69A39 /* LifeModel.swift in Sources */,
 				F6F73F4F1A421D6200CDDE54 /* LifeFunc.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

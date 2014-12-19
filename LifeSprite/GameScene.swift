@@ -9,31 +9,49 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    
-    typealias CoordSet = [String: (CGFloat,CGFloat)]
 
-    let lifeModel = LifeModel.sharedInstance
-    var coordArray: CoordSet!
+    //let lifeModel = LifeModel.sharedInstance
+    //var coordArray: CoordSet!
+    
+    var dimX: UInt32 = 60
+    var dimY: UInt32 = 60
+    var cellQuantity: Int!
+    var arrayCapacity = 3600//Int(dimX*dimY)
+    var cellArray = Array<Int32>(count: 3600, repeatedValue: 0)
     
     override func didMoveToView(view: SKView) {
         
         backgroundColor = SKColor.lightGrayColor()
         
-        lifeModel.generateSet()
+        cellQuantity = 400
+        //cellSet = CoordSet()
         
-        for i in 0..<lifeModel.cellArray.count {
+        //cellArray = Array<Int32>(count: arrayCapacity, repeatedValue: 0)
+        generateSet()
+        for i in 0..<cellArray.count {
             
             let squareSprite = SKSpriteNode(color: UIColor.darkGrayColor(), size: CGSizeMake(8, 8))
             squareSprite.anchorPoint = CGPointMake(0, 0)
-            let xPos = i % Int(lifeModel.dimX)
-            let yPos = (i - xPos)/Int(lifeModel.dimX)
+            let xPos = i % Int(dimX)
+            let yPos = (i - xPos)/Int(dimX)
             squareSprite.position = CGPoint(x: CGFloat(xPos)*10 + 100, y: CGFloat(yPos)*10 + 200)
             
-            if (lifeModel.cellArray[i] == 0) {
+            if (cellArray[i] == 0) {
                 squareSprite.hidden = true
             }
             
             addChild(squareSprite)
+        }
+    }
+    
+    func generateSet() {
+        
+        for i in 0...cellQuantity {
+            
+            let x = arc4random_uniform(dimX - 1)
+            let y = arc4random_uniform(dimY - 1)
+            
+            cellArray[Int(x + y*dimX)] = 1
         }
     }
     
@@ -58,7 +76,8 @@ class GameScene: SKScene {
 //    }
    
     override func update(currentTime: CFTimeInterval) {
-        lifeModel.iterateSet()
+        
+        iterateSetInC(Int32(arrayCapacity), Int32(dimX), Int32(dimY), &cellArray)
         
         var i = 0
         
@@ -66,7 +85,7 @@ class GameScene: SKScene {
             
             if let sprite = node as? SKSpriteNode {
                 
-                if lifeModel.cellArray[i] == 1 {
+                if cellArray[i] == 1 {
                     
                     sprite.hidden = false
                 } else {
